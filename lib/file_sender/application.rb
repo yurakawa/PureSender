@@ -11,8 +11,8 @@ module PureSender
     port:      587,
     domain:    'smtp.gmail.com',
     enable_starttls_auto: false,
-    user_name: 'ユーザー名@gmail.com',
-    password: 'gmailパスワード'
+    user_name: 'example@gmail.com',
+    password: 'password'
     #authentication: :plain
   }
 
