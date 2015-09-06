@@ -1,0 +1,43 @@
+<div class="row-fluid">
+
+  <legend>Create Mail Template</legend>
+
+  <% if @alert %>
+    <div class="alert alert-error">
+      <button class="close" data-dismiss="alert">&times;</button>
+      <%= @alert %>
+    </div>
+  <% end %>
+
+  <% if @notice %>
+    <div class="alert alert-success">
+      <button class="close" data-dismiss="alert">&times;</button>
+      <%= @notice %>
+    </div>
+  <% end %>
+
+  <form accept-charset="UTF-8"  action="/add_template" class="form-inline" enctype="multipart/form-data" method="post">
+    <input id="category_id" name="category_id" type="hidden" value="<%= @category.id %>">
+    From </br>
+    <input name="from" type="email" value="<%= @template.from %>" class="span8" placeholder="from"> </br>
+
+    To </br>
+    <input name="to" type="email" value="<%= @template.to %>" multiple  class="span8" placeholder="to"> </br>
+
+    cc </br>
+    <input name="cc" type="email" value="<%= @template.cc %>" multiple class="span8" placeholder="cc"> </br>
+
+    bcc </br>
+    <input name="bcc" type="email" value="<%= @template.bcc %> "multiple class="span8" placeholder="bcc"> </br>
+
+    Subject(任意の場所に『(md1-md2)』を挿入してください) </br>
+    <input name="subject" type="text" value="<%= @template.subject %>" class="span8" placeholder="subject"> </br>
+
+    Body(任意の場所に『(md1-md2)』を挿入してください)</br>
+    <textarea name="body" rows="20" class="span8" placeholder="body"><%= @template.body %>"</textarea>
+    </br>
+
+    <button class="btn" type="submit">save</button> </br>
+
+  </form>
+</div>

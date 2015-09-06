@@ -1,0 +1,51 @@
+<div class="row-fluid">
+ <legend>SendMail</legend>
+
+  <% if @alert %>
+    <div class="alert alert-error">
+      <button class="close" data-dismiss="alert">&times;</button>
+      <%= @alert %>
+    </div>
+  <% end %>
+
+  <% if @notice %>
+    <div class="alert alert-success">
+      <button class="close" data-dismiss="alert">&times;</button>
+      <%= @notice %>
+    </div>
+  <% end %>
+
+  <div class="well span9">
+    <form accept-charset="UTF-8"  action="/send_mail" class="form-inline" enctype="multipart/form-data" method="post">
+      <input id="file_path" name="file_path" type="hidden" value="<%= @file.path %>">
+      <input id="file_name" name="file_name" type="hidden" value="<%= @file.name%>">
+      <input id="category_path" name="category_id" type="hidden" value="<%= @file.category_id%>">
+      From <br>
+      <input name="from" type="email" value="<%= @template.from %>" class="span8" placeholder="info-axis@lexues.co.jp" readonly="ture" id="from-tb">
+      <button class="btn" onClick="toggle_disable('#from-tb');" type="button"> Edit</button><br>
+
+      To <br>
+      <input name="to" type="email" value="<%= @template.to %>" multiple  class="span8" placeholder="foo@bar.co.jp" readonly="ture" id="to-tb">
+      <button class="btn" onClick="toggle_disable('#to-tb');" type="button"> Edit</button><br>
+
+      cc <br>
+      <input name="cc" type="email" value="<%= @template.cc %>" multiple class="span8" placeholder="XXX@XXX.co.jp, YYY@YYY.co.jp, ZZZ@ZZZ.co.jp" readonly="ture" id="cc-tb">
+      <button class="btn" onClick="toggle_disable('#cc-tb');" type="button"> Edit</button><br>
+
+      bcc <br>
+      <input name="bcc" type="email" value="<%= @template.bcc %>"  multiple class="span8" placeholder="XXX@XXX.co.jp, YYY@YYY.co.jp, ZZZ@ZZZ.co.jp" readonly="ture" id="bcc-tb">
+      <button class="btn" onClick="toggle_disable('#bcc-tb');" type="button"> Edit</button><br>
+
+      Subject <br>
+      <input name="subject" type="text" value="<%= @template.subject %>" class="span8" placeholder="件名を入力してください" readonly="ture" id="subject-tb" >
+      <button class="btn" onClick="toggle_disable('#subject-tb');" type="button"> Edit</button><br>
+
+      Body <br>
+      <textarea name="body"  rows="20" class="span8" placeholder="本文を入力してください" readonly="ture" id="body-tb" ><%= @template.body %></textarea>
+      <button class="btn" onClick="toggle_disable('#body-tb');" type="button"> Edit</button><br>
+
+      <%= p_filename_with_icon @file %><br><br>
+
+      <button class="btn" onClick="unreadonly()" type="submit">Send</button> <br>
+    </form>
+  </div>

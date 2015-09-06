@@ -1,0 +1,10 @@
+production: &production
+  adapter: sqlite3
+  database: data/file_sender.sqlite3
+
+development:
+  <<: *production
+
+test:
+  <<: *production
+  database: ":memory:"

@@ -1,0 +1,115 @@
+<p>Welcome <%= h @current.username %>.</p>
+
+<% if @alert %>
+  <div class="alert alert-error">
+    <button class="close" data-dismiss="alert">&times;</button>
+    <%= @alert %>
+  </div>
+<% end %>
+
+<% if @notice %>
+  <div class="alert alert-success">
+    <button class="close" data-dismiss="alert">&times;</button>
+    <%= @notice %>
+  </div>
+<% end %>
+
+<h5><i class="icon-pencil"></i>Change password</h5>
+
+<form accept-charset="UTF-8" action="/change_password" class="form-inline" method="post">
+  <input name="old_password" type="password" placeholder="Old password">
+  <input name="new_password" type="password" placeholder="New password">
+  <button class="btn" type="submit">Change</button>
+</form>
+
+<% if @current.root? %>
+  <!-- Administrator -->
+  <div class="row-fluid">
+
+    <div class="span6">
+      <legend>Categories</legend>
+
+      <% if @categories.count > 0 %>
+        <table class="table table-striped table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @categories.each do |category| %>
+              <tr>
+                <td><i class="icon-tag"></i> <%= h category.name %></td>
+                <td>
+                  <input name="category_id" type="hidden" value="<%= category.id %>">
+                  <button class="btn btn-small btn-danger del_category_btn">Delete</button>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <form id="del_category_form" accept-charset="UTF-8" action="/del_category" method="post">
+          <input id="del_category_id" name="category_id" type="hidden" value="">
+        </form>
+      <% else %>
+        <p class="text-error">Category is not registered.</p>
+      <% end %>
+
+      <h5><i class="icon-wrench"></i> Add category</h5>
+
+      <form accept-charset="UTF-8" action="/add_category" class="form-inline" method="post">
+        <input name="category[name]" type="text"  placeholder="Category name">
+        <button class="btn" type="submit">Add</button>
+      </form>
+    </div>
+
+    <div class="span6">
+      <legend>Users</legend>
+
+      <table class="table table-striped table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>username</th>
+            <th>role</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><i class="icon-user"></i> <%= h user.username %></td>
+              <td><%= p_role user %></td>
+              <td>
+                <input name="user_id" type="hidden" value="<%= user.id %>">
+                <% if user != @current && user.username != settings.configuration["root"] %>
+                  <button class="btn btn-small btn-danger del_user_btn">Delete</button>
+                <% else %>
+                  <button class="btn btn-small btn-danger del_user_btn" disabled>Delete</button>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <form id="del_user_form" accept-charset="UTF-8" action="/del_user" method="post">
+        <input id="del_user_id" name="user_id" type="hidden" value="">
+      </form>
+
+      <h5><i class="icon-wrench"></i> Add user</h5>
+
+      <form accept-charset="UTF-8" action="/add_user" class="form-inline" method="post">
+        <input name="username" type="text" placeholder="Username">
+        <input name="password" type="password" placeholder="Password">
+        <input name="role" type="checkbox" value="admin"> Administrator
+        <button class="btn" type="submit">Add</button>
+      </form>
+
+    </div>
+  </div>
+  <!-- /Administrator -->
+<% end %>

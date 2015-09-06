@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <!-- HEAD -->
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+
+  <!-- BODY -->
+  <body>
+
+    <!-- Contents -->
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <form accept-charset="UTF-8" action="/login" method="post">
+
+          <legend>PureSender</legend>
+
+          <% if @alert %>
+            <div class="alert alert-error">
+              <button class="close" data-dismiss="alert">&times;</button>
+              <%= @alert %>
+            </div>
+          <% end %>
+
+          <label>username</label>
+          <input id="username" name="username" type="text">
+
+          <label>password</label>
+          <input id="password" name="password" type="password">
+
+          <br><br>
+          <button class="btn" type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>
