@@ -3,7 +3,7 @@
 $:.unshift(File.expand_path("../lib", __FILE__))
 
 require "bundler/setup"
-require "file_sender"
+require "pure_sender"
 require "logging"
 require "sinatra"
 
